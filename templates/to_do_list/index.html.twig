@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ToDoListController!{% endblock %}
+
+{% block body %}
+    <h1 style="text-align: center">TO DO LIST</h1>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Tâche</th>
+            <th scope="col">Description</th>
+            <th scope="col">Statut</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for tache in taches %}
+            {% if tache.statut == "En cours" %}
+                <tr class="table-primary" >
+                    <th scope="row">{{ tache.titre }}</th>
+                    <td>{{ tache.description }}</td>
+                    <td>{{ tache.statut }}</td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td><a href="{{ path("modifier", {"id": tache.id}) }}"> Modifer </a></td>
+                        <td><a href="{{ path("delete", {"id": tache.id}) }}"> Supprimer </a></td>
+                    {% endif %}
+                </tr>
+            {% else %}
+                <tr class="table-success" id="Terminé">
+                    <th scope="row">{{ tache.titre }}</th>
+                    <td>{{ tache.description }}</td>
+                    <td>{{ tache.statut }}</td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td><a href="{{ path("modifier", {"id": tache.id}) }}"> Modifer </a></td>
+                        <td><a href="{{ path("delete", {"id": tache.id}) }}"> Supprimer </a></td>
+                    {% endif %}
+                </tr>
+            {% endif %}
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}

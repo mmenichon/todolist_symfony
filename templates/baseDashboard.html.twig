@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <link rel="stylesheet" href="https://bootswatch.com/5/cosmo/bootstrap.min.css">
+
+    <style>
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+
+        }
+
+        .dropbtn {
+            background-color: white;
+            color: black;
+            padding: 8px;
+            font-size: 12px;
+            border: none;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown:hover .dropdown-content {display: block;}
+    </style>
+</head>
+
+<body>
+<!-- NavBar : OK -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav me-auto nav-fill">
+            <li class="nav-item">
+                <a class="nav-link active" href="{{ path("home") }}">To Do List</a>
+            </li>
+            {% if not( is_granted('IS_AUTHENTICATED_FULLY')) %}
+                <li class="nav-item">
+                    <a class="btn btn-info" href="{{ path("login") }}">Connexion</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-info" href="{{ path("app_register") }}">Inscription</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("ajoutertache") }}">Ajouter</a>
+                </li>
+                <li class="nav-item">
+                    <p class="nav-link">Nom d'utilisateur : {{ app.user.username }}</p>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-info" href="{{ path("app_dashboard") }}">Tableau de bord</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-info" href="{{ path("app_logout") }}">Déconnexion</a>
+                </li>
+            {% endif %}
+                <li><input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search"></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- SideBar : OK-->
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">
+                            <span data-feather="home" class="align-text-bottom"></span>
+                            Tableau de bord
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file" class="align-text-bottom"></span>
+                            Utilisateurs
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div>
+                {% block body %}
+                {% endblock %}
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+
+<!--
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">Company name</a>
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
+
+    <div class="navbar-nav">
+        <div class="nav-item text-nowrap">
+            <a class="nav-link px-3" href="#">Sign out</a>
+        </div>
+    </div>
+</header>
+-->
