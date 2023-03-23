@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Tache;
 use App\Repository\TacheRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,6 +30,5 @@ class DashboardController extends AbstractController
         $manager->flush();
         return $this->redirectToRoute('app_dashboard');
     }
-
 
 }
