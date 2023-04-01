@@ -38,7 +38,7 @@ class ToDoListController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $task = $form->getData();
+            $tache = $form->getData();
 
             $manager->persist($tache);
             // envoi des données sur la bdd
